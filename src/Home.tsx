@@ -44,6 +44,7 @@ function Home() {
         <div className='flex'>
           <img className='photo' src={user?.avatar || Login} />
           <button className={hidden ? '' : 'hidden'} onClick={signIn}>Logar</button>
+          <p className={hidden ? 'hidden' : ''} onClick={naviToMenu}>Vá para o menu:</p>
           <button className={hidden ? 'hidden' : ''} onClick={naviToMenu}>Menu</button>
         </div>
       </div>
