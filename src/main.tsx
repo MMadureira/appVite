@@ -1,11 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppRouter } from './Router'
-import './App.css';
+
+import { provider, database } from  './services/firebase';
+
+import  './services/firebase'
+
+import { RouterApp } from './Router';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppRouter />
+    <RouterApp />
   </React.StrictMode>,
   document.getElementById('root')
 )

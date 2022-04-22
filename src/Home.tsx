@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-
+import { useContext } from 'react'
 import Login from './assets/Login.svg';
 import { signInWithPopup, getAuth } from "firebase/auth";
 import { provider } from "./services/firebase";
 import { useState } from 'react'
+import { userContext } from './Router';
+import './App.css';
 
 type userType = {
   name: string;
@@ -11,8 +13,14 @@ type userType = {
   avatar: string;
 }
 
+const auth = getAuth();
+
 function Home() {
+
+  const { userValue, setUserValue } = useContext(userContext);
+
   const navi = useNavigate();
+
   function naviToMenu() {
     navi('/menu');
   }
@@ -23,8 +31,9 @@ function Home() {
   const auth = getAuth();
 
   async function signIn() {
-    const resp = await signInWithPopup(auth, provider);
-    const { displayName, email, photoURL } = resp.user;
+    const result = await signInWithPopup(auth, provider);
+    console.log(result);
+    const { displayName, email, photoURL } = result.user;
     if (displayName != null && email != null && photoURL != null) {
       setUser({
         name: displayName,
@@ -44,6 +53,7 @@ function Home() {
         <div className='flex'>
           <img className='photo' src={user?.avatar || Login} />
           <button className={hidden ? '' : 'hidden'} onClick={signIn}>Logar</button>
+          <p className={hidden ? 'hidden' : ''} onClick={naviToMenu}>Vá para o menu:</p>
           <button className={hidden ? 'hidden' : ''} onClick={naviToMenu}>Menu</button>
         </div>
       </div>
